@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Earth Guy & Air Girl</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --earth: #5c8a3c;
+    --earth-dark: #3d5e28;
+    --earth-light: #8bbf5e;
+    --earth-pale: #d4edbc;
+    --air: #4ab3e8;
+    --air-dark: #1e7db5;
+    --air-light: #89d3f5;
+    --air-pale: #cff0fd;
+    --sky: #e8f7ff;
+    --ground: #f5f0e8;
+    --cream: #fffdf7;
+    --text: #2a2a2a;
+    --text-muted: #666;
+    --yellow: #ffd94a;
+    --orange: #ff8c42;
+    --purple: #9b59b6;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    color: var(--text);
+    background: var(--cream);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 2.5rem;
+    background: rgba(255,253,247,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 2px solid rgba(92,138,60,0.15);
+  }
+  .nav-logo {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.4rem;
+    background: linear-gradient(135deg, var(--earth), var(--air));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--text-muted);
+    font-weight: 700; font-size: 0.9rem; letter-spacing: 0.03em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--earth); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 6rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, #cff0fd 0%, #e8f7ff 35%, #f0f8e8 65%, #d4edbc 100%);
+  }
+
+  /* Floating BG shapes */
+  .hero-bg { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+  .cloud {
+    position: absolute;
+    background: rgba(255,255,255,0.75);
+    border-radius: 50px;
+    animation: floatCloud linear infinite;
+  }
+  .cloud::before, .cloud::after {
+    content: ''; position: absolute;
+    background: rgba(255,255,255,0.75); border-radius: 50%;
+  }
+  .cloud-1 { width: 120px; height: 40px; top: 15%; left: -140px; animation-duration: 28s; }
+  .cloud-1::before { width: 60px; height: 60px; top: -30px; left: 15px; }
+  .cloud-1::after { width: 45px; height: 45px; top: -20px; left: 50px; }
+  .cloud-2 { width: 180px; height: 55px; top: 28%; left: -210px; animation-duration: 38s; animation-delay: -12s; }
+  .cloud-2::before { width: 80px; height: 80px; top: -40px; left: 25px; }
+  .cloud-2::after { width: 65px; height: 65px; top: -30px; left: 80px; }
+  .cloud-3 { width: 100px; height: 35px; top: 10%; left: -130px; animation-duration: 22s; animation-delay: -6s; opacity: 0.6; }
+  .cloud-3::before { width: 50px; height: 50px; top: -25px; left: 10px; }
+  .cloud-3::after { width: 40px; height: 40px; top: -18px; left: 40px; }
+
+  @keyframes floatCloud { from { transform: translateX(0); } to { transform: translateX(120vw); } }
+
+  .leaf {
+    position: absolute;
+    width: 20px; height: 20px;
+    background: var(--earth-light);
+    border-radius: 50% 0 50% 0;
+    opacity: 0.4;
+    animation: floatLeaf 6s ease-in-out infinite;
+  }
+  .leaf:nth-child(1) { top: 20%; left: 8%; animation-delay: 0s; }
+  .leaf:nth-child(2) { top: 60%; left: 5%; animation-delay: 1.5s; transform: rotate(45deg); }
+  .leaf:nth-child(3) { top: 40%; right: 7%; animation-delay: 3s; transform: rotate(90deg); }
+  .leaf:nth-child(4) { top: 75%; right: 12%; animation-delay: 0.8s; }
+  .leaf:nth-child(5) { top: 15%; right: 20%; animation-delay: 2s; opacity: 0.3; }
+
+  @keyframes floatLeaf {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-18px) rotate(20deg); }
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--yellow), var(--orange));
+    color: white; font-weight: 800; font-size: 0.8rem;
+    padding: 0.35rem 1.1rem; border-radius: 50px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 15px rgba(255,140,66,0.4);
+    animation: bounce 2.5s ease-in-out infinite;
+  }
+  @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+
+  .hero h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    line-height: 1.05;
+    position: relative; z-index: 1;
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 4px 0 rgba(0,0,0,0.08));
+  }
+  .hero h1 .earth-word { color: var(--earth-dark); }
+  .hero h1 .and-word { color: var(--orange); font-size: 0.7em; }
+  .hero h1 .air-word { color: var(--air-dark); }
+
+  .hero-tagline {
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    color: var(--text-muted);
+    font-weight: 600; margin-bottom: 2.5rem;
+    letter-spacing: 0.02em;
+  }
+  .hero-tagline em { font-style: normal; color: var(--purple); }
+
+  .cta-group { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-bottom: 3.5rem; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.9rem 2rem; border-radius: 50px;
+    font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 800;
+    cursor: pointer; border: none; text-decoration: none;
+    transition: transform 0.18s, box-shadow 0.18s;
+    letter-spacing: 0.02em;
+  }
+  .btn:hover { transform: translateY(-3px); }
+  .btn:active { transform: translateY(0); }
+  .btn-play {
+    background: linear-gradient(135deg, var(--earth), var(--earth-light));
+    color: white;
+    box-shadow: 0 6px 20px rgba(92,138,60,0.45), 0 0 0 0 rgba(92,138,60,0);
+  }
+  .btn-play:hover { box-shadow: 0 10px 30px rgba(92,138,60,0.5); }
+  .btn-trailer {
+    background: linear-gradient(135deg, var(--air-dark), var(--air));
+    color: white;
+    box-shadow: 0 6px 20px rgba(74,179,232,0.45);
+  }
+  .btn-trailer:hover { box-shadow: 0 10px 30px rgba(74,179,232,0.5); }
+
+  /* Hero characters */
+  .hero-chars {
+    display: flex; gap: 3rem; justify-content: center; align-items: flex-end;
+    position: relative; z-index: 1;
+  }
+  .hero-char { text-align: center; animation: charFloat 3s ease-in-out infinite; }
+  .hero-char.air-char { animation-delay: 1.5s; }
+
+  @keyframes charFloat {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  .char-sprite {
+    width: 90px; height: 100px;
+    position: relative; margin: 0 auto 0.5rem;
+  }
+  .char-label {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem; font-weight: 400;
+  }
+  .earth-label { color: var(--earth-dark); }
+  .air-label { color: var(--air-dark); }
+
+  /* SVG characters */
+  .char-sprite svg { width: 100%; height: 100%; }
+
+  /* SECTION COMMON */
+  section { padding: 5rem 2rem; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-tag {
+    display: inline-block;
+    font-size: 0.75rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 0.3rem 1rem; border-radius: 50px; margin-bottom: 1rem;
+  }
+  .tag-earth { background: var(--earth-pale); color: var(--earth-dark); }
+  .tag-air { background: var(--air-pale); color: var(--air-dark); }
+  .tag-purple { background: #f0e8fa; color: #6c3483; }
+  .tag-yellow { background: #fff8dc; color: #8a6d00; }
+  .section-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 1.15; margin-bottom: 1rem;
+  }
+  .section-desc {
+    font-size: 1.05rem; color: var(--text-muted); line-height: 1.75;
+    max-width: 620px;
+  }
+
+  /* ABOUT */
+  .about { background: var(--cream); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+  }
+  .about-visual {
+    background: linear-gradient(135deg, var(--earth-pale) 0%, var(--air-pale) 100%);
+    border-radius: 24px; padding: 2.5rem;
+    display: flex; flex-direction: column; gap: 1rem;
+    border: 2px solid rgba(92,138,60,0.2);
+  }
+  .mechanic-pill {
+    display: flex; align-items: center; gap: 0.75rem;
+    background: white; border-radius: 50px;
+    padding: 0.7rem 1.2rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    font-weight: 700; font-size: 0.9rem;
+    transition: transform 0.2s;
+  }
+  .mechanic-pill:hover { transform: translateX(5px); }
+  .pill-icon {
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; flex-shrink: 0;
+  }
+  .pill-earth { background: var(--earth-pale); }
+  .pill-air { background: var(--air-pale); }
+  .pill-both { background: linear-gradient(135deg, var(--earth-pale), var(--air-pale)); }
+
+  /* CHARACTERS */
+  .characters { background: linear-gradient(180deg, var(--ground) 0%, #e8f3d4 100%); }
+  .chars-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; margin-top: 2.5rem; }
+  .char-card {
+    border-radius: 28px; padding: 2.5rem 2rem;
+    position: relative; overflow: hidden;
+    border: 2.5px solid transparent;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .char-card:hover { transform: translateY(-6px); }
+  .char-card.earth-card {
+    background: linear-gradient(145deg, #f0f8e8 0%, #d4edbc 100%);
+    border-color: var(--earth-light);
+    box-shadow: 0 8px 30px rgba(92,138,60,0.15);
+  }
+  .char-card.earth-card:hover { box-shadow: 0 16px 40px rgba(92,138,60,0.25); }
+  .char-card.air-card {
+    background: linear-gradient(145deg, #e8f7ff 0%, #cff0fd 100%);
+    border-color: var(--air-light);
+    box-shadow: 0 8px 30px rgba(74,179,232,0.15);
+  }
+  .char-card.air-card:hover { box-shadow: 0 16px 40px rgba(74,179,232,0.25); }
+
+  .char-card-sprite { width: 100px; height: 110px; margin: 0 auto 1.2rem; display: block; }
+  .char-card h3 {
+    font-family: 'Fredoka One', cursive; font-size: 1.6rem; margin-bottom: 0.75rem;
+    text-align: center;
+  }
+  .earth-card h3 { color: var(--earth-dark); }
+  .air-card h3 { color: var(--air-dark); }
+
+  .char-traits { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .char-traits li {
+    display: flex; align-items: center; gap: 0.6rem;
+    font-size: 0.95rem; font-weight: 600; color: var(--text-muted);
+  }
+  .trait-icon {
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem; flex-shrink: 0;
+  }
+  .earth-card .trait-icon { background: var(--earth-pale); }
+  .air-card .trait-icon { background: var(--air-pale); }
+
+  .char-limit {
+    margin-top: 1rem; padding: 0.6rem 1rem; border-radius: 12px;
+    font-size: 0.85rem; font-weight: 700; text-align: center;
+  }
+  .earth-card .char-limit { background: rgba(255,100,100,0.12); color: #c0392b; }
+  .air-card .char-limit { background: rgba(255,100,100,0.12); color: #c0392b; }
+
+  /* FEATURES */
+  .features { background: var(--cream); }
+  .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1.5rem; margin-top: 2.5rem; }
+  .feature-card {
+    background: white; border-radius: 22px; padding: 2rem;
+    border: 2px solid transparent;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s;
+  }
+  .feature-card:hover { transform: translateY(-5px); box-shadow: 0 12px 35px rgba(0,0,0,0.12); }
+  .feature-card:nth-child(1):hover { border-color: var(--purple); }
+  .feature-card:nth-child(2):hover { border-color: var(--earth); }
+  .feature-card:nth-child(3):hover { border-color: var(--air); }
+  .feature-card:nth-child(4):hover { border-color: var(--orange); }
+  .feature-icon {
+    width: 58px; height: 58px; border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem; margin-bottom: 1rem;
+  }
+  .fi-1 { background: #f0e8fa; }
+  .fi-2 { background: var(--earth-pale); }
+  .fi-3 { background: var(--air-pale); }
+  .fi-4 { background: #fff0e0; }
+  .feature-card h4 {
+    font-family: 'Fredoka One', cursive; font-size: 1.2rem;
+    margin-bottom: 0.5rem; color: var(--text);
+  }
+  .feature-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; }
+
+  /* GAMEPLAY */
+  .gameplay { background: linear-gradient(180deg, #e8f3d4 0%, var(--air-pale) 100%); }
+  .screenshots-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2.5rem; }
+  .screenshot {
+    border-radius: 18px; overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    transition: transform 0.25s, box-shadow 0.25s;
+    cursor: pointer;
+  }
+  .screenshot:hover { transform: scale(1.04) translateY(-4px); box-shadow: 0 18px 45px rgba(0,0,0,0.2); }
+  .screenshot-inner {
+    aspect-ratio: 16/10;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 0.75rem; padding: 1.5rem; position: relative; overflow: hidden;
+  }
+  .ss-1 { background: linear-gradient(135deg, #2d5a1b 0%, #5c8a3c 40%, #87c55a 100%); }
+  .ss-2 { background: linear-gradient(135deg, #0e4f7a 0%, #1e7db5 40%, #4ab3e8 100%); }
+  .ss-3 { background: linear-gradient(135deg, #4a2080 0%, #7b4fa3 40%, #b07fcc 100%); }
+  .ss-scene { font-size: 2.5rem; filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3)); }
+  .ss-label {
+    font-family: 'Fredoka One', cursive; color: white; font-size: 1rem;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.4); text-align: center;
+  }
+  .screenshot-caption {
+    padding: 0.75rem 1rem;
+    background: white; font-size: 0.85rem; font-weight: 700;
+    color: var(--text-muted); line-height: 1.4;
+  }
+
+  /* VIDEO SECTION */
+  .video-section { background: var(--cream); text-align: center; }
+  .video-embed {
+    max-width: 780px; margin: 2.5rem auto 0;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    border-radius: 24px; overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    border: 2px solid rgba(255,255,255,0.08);
+    aspect-ratio: 16/9;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; position: relative;
+  }
+  .video-embed:hover .play-btn { transform: scale(1.1); }
+  .play-btn {
+    width: 80px; height: 80px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--earth), var(--air));
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.2s;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+  }
+  .play-btn::after {
+    content: ''; display: block;
+    width: 0; height: 0;
+    border-style: solid;
+    border-width: 15px 0 15px 26px;
+    border-color: transparent transparent transparent white;
+    margin-left: 5px;
+  }
+  .video-text {
+    position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
+    color: rgba(255,255,255,0.6); font-size: 0.85rem; font-weight: 600;
+    white-space: nowrap;
+  }
+  .stars {
+    position: absolute; inset: 0; pointer-events: none;
+  }
+  .star {
+    position: absolute; width: 2px; height: 2px;
+    background: white; border-radius: 50%; opacity: 0.6;
+    animation: twinkle 3s ease-in-out infinite;
+  }
+  @keyframes twinkle { 0%,100% { opacity: 0.2; } 50% { opacity: 0.9; } }
+
+  /* FUSION */
+  .fusion {
+    background: linear-gradient(135deg, var(--earth-pale) 0%, white 50%, var(--air-pale) 100%);
+    text-align: center;
+  }
+  .fusion-display {
+    display: flex; align-items: center; justify-content: center; gap: 2rem;
+    margin: 2.5rem auto;
+    flex-wrap: wrap;
+  }
+  .fusion-char { text-align: center; }
+  .fusion-char-sprite { width: 80px; height: 90px; margin: 0 auto 0.5rem; }
+  .fusion-char span { font-family: 'Fredoka One', cursive; font-size: 0.95rem; }
+  .fusion-plus {
+    font-family: 'Fredoka One', cursive; font-size: 3rem; color: var(--orange);
+    animation: plusPulse 1.5s ease-in-out infinite;
+  }
+  @keyframes plusPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+  .fusion-arrow { font-size: 2rem; color: var(--text-muted); }
+  .fusion-result {
+    background: linear-gradient(135deg, var(--earth) 0%, var(--purple) 50%, var(--air) 100%);
+    border-radius: 24px; padding: 2rem 2.5rem; color: white; max-width: 260px;
+    box-shadow: 0 12px 40px rgba(155,89,182,0.35);
+  }
+  .fusion-result h4 { font-family: 'Fredoka One', cursive; font-size: 1.4rem; margin-bottom: 0.5rem; }
+  .fusion-result p { font-size: 0.9rem; opacity: 0.9; line-height: 1.6; }
+
+  .fusion-perks {
+    display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1rem;
+  }
+  .perk-badge {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    background: white; border-radius: 50px; padding: 0.45rem 1rem;
+    font-size: 0.85rem; font-weight: 700;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+  }
+  .perk-badge span:first-child { font-size: 1rem; }
+
+  /* FOOTER */
+  footer {
+    background: #1e2a1a;
+    color: rgba(255,255,255,0.7);
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+  .footer-inner { max-width: 900px; margin: 0 auto; }
+  .footer-logo {
+    font-family: 'Fredoka One', cursive; font-size: 2rem;
+    background: linear-gradient(135deg, var(--earth-light), var(--air-light));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text; margin-bottom: 1rem;
+  }
+  .footer-tagline { font-size: 0.9rem; margin-bottom: 2rem; }
+  .social-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem; }
+  .social-link {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 50px; padding: 0.5rem 1.2rem;
+    color: rgba(255,255,255,0.8); text-decoration: none;
+    font-size: 0.85rem; font-weight: 700;
+    transition: background 0.2s, color 0.2s;
+  }
+  .social-link:hover { background: rgba(255,255,255,0.15); color: white; }
+  .footer-credits {
+    border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem;
+    font-size: 0.8rem; color: rgba(255,255,255,0.4);
+    line-height: 1.8;
+  }
+
+  /* SCROLL FADE IN */
+  .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+  .fade-in-delay-1 { transition-delay: 0.1s; }
+  .fade-in-delay-2 { transition-delay: 0.2s; }
+  .fade-in-delay-3 { transition-delay: 0.3s; }
+  .fade-in-delay-4 { transition-delay: 0.4s; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 0.9rem 1.2rem; }
+    .nav-links { display: none; }
+    .about-grid { grid-template-columns: 1fr; }
+    .chars-grid { grid-template-columns: 1fr; }
+    .screenshots-grid { grid-template-columns: 1fr; }
+    .hero-chars { gap: 1.5rem; }
+    .char-sprite { width: 70px; height: 78px; }
+    section { padding: 3.5rem 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">⚡ EGAG</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#characters">Characters</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#gameplay">Gameplay</a></li>
+    <li><a href="#play">Play</a></li>
+  </ul>
+  
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="cloud cloud-1"></div>
+    <div class="cloud cloud-2"></div>
+    <div class="cloud cloud-3"></div>
+    <div class="leaf"></div>
+    <div class="leaf"></div>
+    <div class="leaf"></div>
+    <div class="leaf"></div>
+    <div class="leaf"></div>
+  </div>
+
+  <div class="hero-badge">🎮 Now Available</div>
+
+  <h1>
+    <span class="earth-word">Earth Guy</span><br>
+    <span class="and-word">&amp;</span>
+    <span class="air-word">Air Girl</span>
+  </h1>
+  <p class="hero-tagline">Two elements. One goal. <em>Infinite puzzles.</em></p>
+
+  <div class="cta-group">
+    <a href="https://confusedgmcst.github.io/Spring-Jam/webBuild/EBAG" 
+    target="_blank" 
+    class="btn btn-play">
+    ▶ Play Now
+ </a>
+  </div>
+
+  <div class="hero-chars">
+    <div class="hero-char earth-char">
+        <div class="char-sprite">
+          <img src="Earthboy.png" alt="">
+        </div>
+      </div>
+      <span class="char-label earth-label">Earth Boy</span>
+    </div>
+
+        <div class="char-sprite">
+          <img src="Airgirl.png" alt="Air Girl">
+        </div>
+      <span class="char-label air-label">Air Girl</span>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="fade-in">
+        <div class="section-tag tag-earth">About the Game</div>
+        <h2 class="section-title">Teamwork Makes the Dream Work</h2>
+        <p class="section-desc">
+          Earth Guy and Air Girl is a cooperative 2D puzzle-platformer where two elemental heroes must combine their unique powers to conquer increasingly tricky levels. Earth Guy's brute strength and underwater ability pair perfectly with Air Girl's agility and vent-gliding finesse.
+        </p>
+        <br>
+        <p class="section-desc">
+          Work together — or control both heroes solo — to push buttons, cross chasms, dodge hazards, and unlock the ancient elemental gates. Every puzzle is a dance between earth and air.
+        </p>
+      </div>
+      <div class="about-visual fade-in fade-in-delay-2">
+        <div class="mechanic-pill">
+          <div class="pill-icon pill-earth">🌿</div>
+          <span>Earth pushes heavy blocks & presses switches</span>
+        </div>
+        <div class="mechanic-pill">
+          <div class="pill-icon pill-air">💨</div>
+          <span>Air glides through vents & reaches high platforms</span>
+        </div>
+        <div class="mechanic-pill">
+          <div class="pill-icon pill-earth">🌊</div>
+          <span>Earth can dive underwater; Air cannot</span>
+        </div>
+        <div class="mechanic-pill">
+          <div class="pill-icon pill-both">✨</div>
+          <span>Fuse together for ultimate elemental power</span>
+        </div>
+        <div class="mechanic-pill">
+          <div class="pill-icon pill-air">🎮</div>
+          <span>Co-op — you choose your adventure</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHARACTERS -->
+<section class="characters" id="characters">
+  <div class="section-inner">
+    <div class="section-tag tag-earth">Meet the Heroes</div>
+    <h2 class="section-title">Two Elements</h2>
+    <div class="chars-grid">
+      <!-- Earth Guy Card -->
+      <div class="char-card earth-card fade-in">
+        <svg class="char-card-sprite" viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="50" cy="78" rx="28" ry="28" fill="#5c8a3c"/>
+          <circle cx="50" cy="38" r="27" fill="#6ea84a"/>
+          <ellipse cx="41" cy="35" rx="6" ry="7" fill="white"/>
+          <ellipse cx="59" cy="35" rx="6" ry="7" fill="white"/>
+          <circle cx="42" cy="36" r="3.5" fill="#2a1a00"/>
+          <circle cx="60" cy="36" r="3.5" fill="#2a1a00"/>
+          <circle cx="43" cy="34" r="1.2" fill="white"/>
+          <circle cx="61" cy="34" r="1.2" fill="white"/>
+          <path d="M41 47 Q50 55 59 47" stroke="#2a1a00" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M36 28 Q41 25 46 28" stroke="#3d5e28" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M54 28 Q59 25 64 28" stroke="#3d5e28" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <ellipse cx="18" cy="74" rx="10" ry="18" fill="#5c8a3c" transform="rotate(-8 18 74)"/>
+          <ellipse cx="82" cy="74" rx="10" ry="18" fill="#5c8a3c" transform="rotate(8 82 74)"/>
+          <circle cx="14" cy="90" r="9" fill="#6ea84a"/>
+          <circle cx="86" cy="90" r="9" fill="#6ea84a"/>
+          <rect x="25" y="80" width="50" height="8" rx="4" fill="#3d5e28" opacity="0.45"/>
+          <rect x="33" y="100" width="14" height="10" rx="5" fill="#3d5e28"/>
+          <rect x="53" y="100" width="14" height="10" rx="5" fill="#3d5e28"/>
+        </svg>
+        <h3>Earth Guy</h3>
+        <ul class="char-traits">
+          <li><div class="trait-icon">💪</div>Heavy and powerful — can push boulders</li>
+          <li><div class="trait-icon">🌊</div>Can dive and breathe underwater</li>
+          <li><div class="trait-icon">🔘</div>Activates ground-level pressure buttons</li>
+          <li><div class="trait-icon">📦</div>Moves heavy objects and blocks</li>
+        </ul>
+        <div class="char-limit">⚠️ Low jump height — can't reach high ledges</div>
+      </div>
+
+      <!-- Air Girl Card -->
+      <div class="char-card air-card fade-in fade-in-delay-2">
+        <svg class="char-card-sprite" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+          <path d="M28 72 Q18 100 22 115 Q50 125 78 115 Q82 100 72 72 Z" fill="#89d3f5" opacity="0.6"/>
+          <path d="M30 72 Q22 98 25 112 Q50 120 75 112 Q78 98 70 72 Z" fill="#4ab3e8"/>
+          <ellipse cx="50" cy="70" rx="20" ry="20" fill="#4ab3e8"/>
+          <circle cx="50" cy="37" r="25" fill="#89d3f5"/>
+          <path d="M25 34 Q22 12 50 10 Q78 12 75 34" fill="#c8e8f8"/>
+          <path d="M25 28 Q16 22 18 10 Q28 4 32 20" fill="#c8e8f8"/>
+          <path d="M75 28 Q84 22 82 10 Q72 4 68 20" fill="#c8e8f8"/>
+          <ellipse cx="41" cy="34" rx="6" ry="7" fill="white"/>
+          <ellipse cx="59" cy="34" rx="6" ry="7" fill="white"/>
+          <circle cx="42" cy="35" r="3.5" fill="#1e5f8a"/>
+          <circle cx="60" cy="35" r="3.5" fill="#1e5f8a"/>
+          <circle cx="43" cy="33" r="1.2" fill="white"/>
+          <circle cx="61" cy="33" r="1.2" fill="white"/>
+          <path d="M41 45 Q50 52 59 45" stroke="#1e5f8a" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <circle cx="32" cy="40" r="5.5" fill="#ff9eb5" opacity="0.45"/>
+          <circle cx="68" cy="40" r="5.5" fill="#ff9eb5" opacity="0.45"/>
+          <path d="M28 64 Q8 50 10 32 Q17 38 22 62" fill="#cff0fd" opacity="0.75"/>
+          <path d="M72 64 Q92 50 90 32 Q83 38 78 62" fill="#cff0fd" opacity="0.75"/>
+          <circle cx="10" cy="56" r="3" fill="#89d3f5" opacity="0.7"/>
+          <circle cx="90" cy="52" r="2.5" fill="#89d3f5" opacity="0.7"/>
+          <circle cx="6" cy="44" r="2" fill="white" opacity="0.6"/>
+          <circle cx="94" cy="42" r="2" fill="white" opacity="0.6"/>
+        </svg>
+        <h3>Air Girl</h3>
+        <ul class="char-traits">
+          <li><div class="trait-icon">🌬️</div>Floats and glides through the air</li>
+          <li><div class="trait-icon">💨</div>Passes through wind vents & air tunnels</li>
+          <li><div class="trait-icon">🦅</div>Super high jump — reaches any platform</li>
+          <li><div class="trait-icon">⚡</div>Fast, agile movement and wall-cling</li>
+        </ul>
+        <div class="char-limit">⚠️ Cannot touch water · Cannot press heavy buttons</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="section-inner">
+    <div class="section-tag tag-purple">Key Features</div>
+    <h2 class="section-title">What Makes It Special</h2>
+    <div class="features-grid">
+      <div class="feature-card fade-in">
+        <div class="feature-icon fi-1">⚗️</div>
+        <h4>Fusion Mechanic</h4>
+        <p>Combine Earth Guy and Air Girl into a single unstoppable hero with all abilities. Unlock hidden areas and secret paths only reachable in fusion form.</p>
+      </div>
+      <div class="feature-card fade-in fade-in-delay-1">
+        <div class="feature-icon fi-2">🧩</div>
+        <h4>Puzzle-First Design</h4>
+        <p>Every level is a handcrafted brain-teaser. No filler — each stage introduces a fresh mechanic or twist on a familiar one.</p>
+      </div>
+      <div class="feature-card fade-in fade-in-delay-2">
+        <div class="feature-icon fi-3">👥</div>
+        <h4>Co-op Play</h4>
+        <p>Play with a friend locally! The puzzles are designed to be fun and fair.</p>
+      </div>
+      <div class="feature-card fade-in fade-in-delay-3">
+        <div class="feature-icon fi-4">📈</div>
+        <h4>Rising Difficulty</h4>
+        <p>Start gentle, end legendary. Five worlds of escalating challenge, from breezy meadows to volcanic depths and storm-swept skies.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GAMEPLAY SCREENSHOTS -->
+<section class="gameplay" id="gameplay">
+  <div class="section-inner">
+    <div class="section-tag tag-earth">Gameplay</div>
+    <h2 class="section-title">See It in Action</h2>
+    <p class="section-desc">Explore lush worlds where every platform, vent, and button is a piece of the puzzle.</p>
+    <div class="screenshots-grid">
+      <div class="screenshot fade-in">
+        <div class="screenshot-inner ss-1">
+          <div class="ss-scene">🌿🪨💧</div>
+          <div class="ss-label">Earth Guy floods the passage while Air Girl waits above</div>
+        </div>
+        <div class="screenshot-caption">🌊 Underwater Challenge — World 1: The Root Caverns</div>
+      </div>
+      <div class="screenshot fade-in fade-in-delay-1">
+        <div class="screenshot-inner ss-2">
+          <div class="ss-scene">💨🌀🔵</div>
+          <div class="ss-label">Air Girl threads through spinning air vents at high speed</div>
+        </div>
+        <div class="screenshot-caption">💨 Vent Surfing — World 2: Sky Temple Heights</div>
+      </div>
+      <div class="screenshot fade-in fade-in-delay-2">
+        <div class="screenshot-inner ss-3">
+          <div class="ss-scene">✨⚡🌟</div>
+          <div class="ss-label">Fusion form activated — all-access pass through the final gate</div>
+        </div>
+        <div class="screenshot-caption">⚗️ Fusion Form — World 5: The Elemental Core</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLAY GAME -->
+<section class="play-game" id="play">
+  <div class="section-inner">
+    <div class="section-tag tag-air">Play Online</div>
+    
+    <h2 class="section-title">Play Earth Guy & Air Girl Right Here</h2>
+    
+    <p class="section-desc" style="margin-bottom:2rem;">
+      Jump straight into the adventure directly from your browser.
+      No download required.
+    </p>
+
+    <div class="game-frame-wrapper">
+      <iframe 
+        src="https://confusedgmcst.github.io/Spring-Jam/webBuild/EBAG"
+        title="Earth Guy and Air Girl Game"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- FUSION SECTION -->
+<section class="fusion">
+  <div class="section-inner">
+    <div class="section-tag tag-purple">Ultimate Ability</div>
+    <h2 class="section-title">The Fusion</h2>
+    <p class="section-desc" style="margin: 0 auto 1.5rem;">When one element isn't enough, combine forces into something greater than the sum of their parts.</p>
+    <div class="fusion-display">
+      <div class="fusion-char">
+        <div class="fusion-char-sprite">
+          <svg viewBox="0 0 80 90" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="40" cy="62" rx="22" ry="22" fill="#5c8a3c"/>
+            <circle cx="40" cy="30" r="20" fill="#6ea84a"/>
+            <ellipse cx="33" cy="27" rx="5" ry="6" fill="white"/>
+            <ellipse cx="47" cy="27" rx="5" ry="6" fill="white"/>
+            <circle cx="34" cy="28" r="3" fill="#2a1a00"/>
+            <circle cx="48" cy="28" r="3" fill="#2a1a00"/>
+            <path d="M32 38 Q40 45 48 38" stroke="#2a1a00" stroke-width="2" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span style="color:var(--earth-dark)">Earth Guy</span>
+      </div>
+      <div class="fusion-plus">+</div>
+      <div class="fusion-char">
+        <div class="fusion-char-sprite">
+          <svg viewBox="0 0 80 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 62 Q13 82 16 95 Q40 103 64 95 Q67 82 60 62 Z" fill="#89d3f5" opacity="0.7"/>
+            <path d="M22 62 Q16 80 19 92 Q40 100 61 92 Q64 80 58 62 Z" fill="#4ab3e8"/>
+            <ellipse cx="40" cy="60" rx="18" ry="18" fill="#4ab3e8"/>
+            <circle cx="40" cy="32" r="20" fill="#89d3f5"/>
+            <path d="M20 28 Q18 10 40 8 Q62 10 60 28" fill="#c8e8f8"/>
+            <ellipse cx="33" cy="29" rx="5" ry="6" fill="white"/>
+            <ellipse cx="47" cy="29" rx="5" ry="6" fill="white"/>
+            <circle cx="34" cy="30" r="3" fill="#1e5f8a"/>
+            <circle cx="48" cy="30" r="3" fill="#1e5f8a"/>
+            <path d="M32 40 Q40 47 48 40" stroke="#1e5f8a" stroke-width="2" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span style="color:var(--air-dark)">Air Girl</span>
+      </div>
+      <div class="fusion-arrow">→</div>
+      <div class="fusion-result">
+        <div style="font-size:2.5rem;margin-bottom:0.5rem;">🌪️</div>
+        <h4>Elemental Storm</h4>
+        <p>All abilities unlocked. Swim, fly, push, and phase!</p>
+      </div>
+    </div>
+    <div class="fusion-perks">
+      <div class="perk-badge"><span>🌊</span> Underwater flight</div>
+      <div class="perk-badge"><span>💨</span> Vent boost</div>
+      <div class="perk-badge"><span>💪</span> Heavy press</div>
+      <div class="perk-badge"><span>🦅</span> Infinite jump</div>
+      <div class="perk-badge"><span>⚡</span> Speed boost</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Earth Guy &amp; Air Girl</div>
+    <p class="footer-tagline">Two elements. One goal. Infinite puzzles.</p>
+    
+    <div class="footer-credits">
+      <p>Developed with ❤️ by MCVTS · All rights reserved © 2026</p>
+      <p>Level Design · Game Programming</p>
+      <p style="margin-top:0.5rem;">Built for a Little Fun into your Life!</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll fade-in observer
+  const faders = document.querySelectorAll('.fade-in');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.15 });
+  faders.forEach(el => observer.observe(el));
+
+  // Smooth nav link click
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+</script>
+</body>
+</html>

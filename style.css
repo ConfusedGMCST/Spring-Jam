@@ -1,0 +1,171 @@
+* { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --earth:#5c8a3c;
+  --earth-dark:#3d5e28;
+  --air:#4ab3e8;
+  --air-dark:#1e7db5;
+  --sky:#e8f7ff;
+  --ground:#f5f0e8;
+  --cream:#fffdf7;
+  --text:#2a2a2a;
+  --text-muted:#666;
+}
+
+body {
+  font-family:'Nunito',sans-serif;
+  background:var(--cream);
+  color:var(--text);
+  overflow-x:hidden;
+}
+
+/* NAV */
+nav {
+  position:fixed;
+  top:0;
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  padding:1rem 2rem;
+  background:rgba(255,255,255,0.9);
+  backdrop-filter:blur(10px);
+}
+
+.nav-links {
+  display:flex;
+  gap:1.5rem;
+  list-style:none;
+}
+
+/* HERO */
+.hero {
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding-top:5rem;
+}
+
+.hero h1 {
+  font-family:'Fredoka One';
+  font-size:4rem;
+}
+
+.earth-word { color:var(--earth-dark); }
+.air-word { color:var(--air-dark); }
+
+.hero-chars {
+  display:flex;
+  gap:3rem;
+  margin-top:2rem;
+}
+
+.char-sprite img {
+  width:90px;
+  animation:float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-10px);}
+}
+
+/* SECTIONS */
+section {
+  padding:5rem 2rem;
+}
+
+.section-title {
+  font-size:2.5rem;
+  text-align:center;
+  margin-bottom:2rem;
+}
+
+/* CHARACTERS */
+.chars-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:2rem;
+}
+
+.char-card {
+  background:white;
+  padding:2rem;
+  border-radius:20px;
+  text-align:center;
+}
+
+/* FEATURES */
+.features-grid {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1rem;
+}
+
+.feature-card {
+  background:white;
+  padding:1rem;
+  border-radius:12px;
+}
+
+/* GAMEPLAY */
+.screenshots-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1rem;
+}
+
+.screenshot {
+  background:white;
+  border-radius:12px;
+  overflow:hidden;
+}
+
+/* FOOTER */
+footer {
+  background:#1e1e1e;
+  color:white;
+  text-align:center;
+  padding:2rem;
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .chars-grid,
+  .features-grid,
+  .screenshots-grid {
+    grid-template-columns:1fr;
+  }
+}
+/* PLAY GAME SECTION */
+.play-game {
+  background: linear-gradient(180deg, #dff5ff 0%, #f5fff0 100%);
+  text-align: center;
+}
+
+.game-frame-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  border: 4px solid rgba(255,255,255,0.7);
+  background: #000;
+}
+
+.game-frame-wrapper iframe {
+  width: 100%;
+  height: 700px;
+  border: none;
+  display: block;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .game-frame-wrapper iframe {
+    height: 500px;
+  }
+}
