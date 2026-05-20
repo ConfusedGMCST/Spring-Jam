@@ -1,9 +1,9 @@
 const cacheName = "DefaultCompany-Jame Gam-1.0";
 const contentToCache = [
     "Build/EBAG.loader.js",
-    "Build/EBAG.framework.js.br",
-    "Build/EBAG.data.br",
-    "Build/EBAG.wasm.br",
+    "Build/EBAG.framework.js",
+    "Build/EBAG.data",
+    "Build/EBAG.wasm",
     "TemplateData/style.css"
 
 ];
